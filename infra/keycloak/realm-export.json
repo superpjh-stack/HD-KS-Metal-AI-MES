@@ -1,0 +1,118 @@
+{
+  "realm": "ks-mes",
+  "displayName": "광성정밀 AI-MES",
+  "enabled": true,
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "accessTokenLifespan": 900,
+  "ssoSessionMaxLifespan": 28800,
+  "bruteForceProtected": true,
+  "failureFactor": 5,
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "시스템 관리자 - 전체 권한"
+      },
+      {
+        "name": "MANAGER",
+        "description": "공장장/팀장 - 조회 전체 + 일부 수정"
+      },
+      {
+        "name": "OPERATOR",
+        "description": "현장 작업자 - 자기 WO 입력, 자주검사"
+      },
+      {
+        "name": "INSPECTOR",
+        "description": "품질검사원 - 입고검사, 품질 데이터"
+      },
+      {
+        "name": "VIEWER",
+        "description": "조회 전용 - 모회사 SQA, 감사"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "ks-mes-web",
+      "name": "광성정밀 AI-MES Web",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "ks-mes-web-secret",
+      "redirectUris": [
+        "http://localhost:3000/*",
+        "https://mes.ks-precision.com/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3000",
+        "https://mes.ks-precision.com"
+      ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "access.token.lifespan": "900",
+        "use.refresh.tokens": "true",
+        "client_credentials.use_refresh_token": "true"
+      }
+    },
+    {
+      "clientId": "ks-mes-api",
+      "name": "AI-MES API Gateway",
+      "enabled": true,
+      "publicClient": false,
+      "bearerOnly": true,
+      "protocol": "openid-connect"
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "email": "admin@ks-mes.local",
+      "firstName": "시스템",
+      "lastName": "관리자",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Admin1234!",
+          "temporary": true
+        }
+      ],
+      "realmRoles": ["ADMIN"]
+    },
+    {
+      "username": "operator01",
+      "email": "operator01@ks-mes.local",
+      "firstName": "김",
+      "lastName": "작업자",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Operator1234!",
+          "temporary": true
+        }
+      ],
+      "realmRoles": ["OPERATOR"]
+    },
+    {
+      "username": "inspector01",
+      "email": "inspector01@ks-mes.local",
+      "firstName": "박",
+      "lastName": "검사원",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Inspector1234!",
+          "temporary": true
+        }
+      ],
+      "realmRoles": ["INSPECTOR"]
+    }
+  ]
+}

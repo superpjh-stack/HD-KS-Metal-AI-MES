@@ -1,0 +1,235 @@
+{
+  "timestamp": "2026-05-11T06:19:23.554Z",
+  "reason": "compaction",
+  "status": {
+    "version": "2.0",
+    "lastUpdated": "2026-05-11T06:09:04.445Z",
+    "activeFeatures": [
+      "ai-mes-foundation",
+      "domain",
+      "packages",
+      "db",
+      "ui",
+      "prisma",
+      "scripts"
+    ],
+    "primaryFeature": "ai-mes-foundation",
+    "features": {
+      "ai-mes-foundation": {
+        "phase": "do",
+        "subPhase": "1-A-complete",
+        "matchRate": null,
+        "iterationCount": 0,
+        "startedAt": "2026-05-11T00:00:00.000Z",
+        "planDoc": "docs/01-plan/features/ai-mes-foundation.plan.md",
+        "designDoc": "docs/02-design/features/ai-mes-foundation.design.md",
+        "phase1A": {
+          "completedAt": "2026-05-11T06:00:00.000Z",
+          "files": [
+            "package.json",
+            "turbo.json",
+            ".gitignore",
+            "packages/config/tsconfig.base.json",
+            "packages/types/src/domain/lot.ts",
+            "packages/types/src/domain/machine.ts",
+            "packages/types/src/domain/work-order.ts",
+            "packages/types/src/domain/user.ts",
+            "packages/types/src/domain/audit.ts",
+            "packages/types/src/api.ts",
+            "packages/types/src/index.ts",
+            "packages/db/package.json",
+            "packages/db/prisma/schema.prisma",
+            "packages/db/prisma/migrations/ts_setup.sql",
+            "packages/db/prisma/seed.ts",
+            "packages/db/src/index.ts",
+            "packages/ui/package.json",
+            "packages/ui/src/index.ts",
+            "packages/ui/src/types.ts",
+            "infra/docker/docker-compose.dev.yml",
+            "infra/docker/.env.example",
+            "infra/docker/init/postgres-init.sql",
+            "infra/keycloak/realm-export.json",
+            "infra/kong/kong.yml"
+          ]
+        }
+      },
+      "domain": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:46:02.044Z",
+          "lastUpdated": "2026-05-11T05:46:17.226Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\types\\src\\domain\\audit.ts"
+      },
+      "packages": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:46:23.203Z",
+          "lastUpdated": "2026-05-11T05:46:24.823Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\types\\src\\index.ts"
+      },
+      "db": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:47:05.984Z",
+          "lastUpdated": "2026-05-11T05:47:05.984Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\db\\src\\index.ts"
+      },
+      "ui": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:48:03.861Z",
+          "lastUpdated": "2026-05-11T05:48:09.476Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\ui\\src\\types.ts"
+      },
+      "prisma": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:48:17.673Z",
+          "lastUpdated": "2026-05-11T05:48:17.673Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\db\\prisma\\seed.ts"
+      },
+      "scripts": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T06:09:04.445Z",
+          "lastUpdated": "2026-05-11T06:09:04.445Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\scripts\\db-setup.ps1"
+      }
+    },
+    "pipeline": {
+      "currentPhase": 2,
+      "level": "Dynamic",
+      "phaseHistory": [
+        {
+          "phase": 1,
+          "completedAt": "2026-05-11T00:00:00.000Z"
+        }
+      ]
+    },
+    "session": {
+      "startedAt": "2026-05-11T00:00:00.000Z",
+      "onboardingCompleted": true,
+      "lastActivity": "2026-05-11T06:09:04.445Z"
+    },
+    "history": [
+      {
+        "event": "plan_created",
+        "feature": "ai-mes-foundation",
+        "timestamp": "2026-05-11T00:00:00.000Z"
+      },
+      {
+        "event": "design_started",
+        "feature": "ai-mes-foundation",
+        "timestamp": "2026-05-11T00:00:00.000Z"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:02.044Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:08.868Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:10.913Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:15.479Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:17.226Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:23.203Z",
+        "feature": "packages",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:24.823Z",
+        "feature": "packages",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:47:05.984Z",
+        "feature": "db",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:48:03.861Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:48:09.476Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:48:17.673Z",
+        "feature": "prisma",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T06:09:04.445Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      }
+    ]
+  }
+}

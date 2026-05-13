@@ -1,0 +1,32 @@
+{
+  "name": "ks-mes",
+  "private": true,
+  "version": "0.1.0",
+  "description": "광성정밀 AI-MES - 제조AI 특화 스마트공장 시스템",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:integration": "turbo run test:integration",
+    "test:e2e": "turbo run test:e2e",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "db:generate": "pnpm --filter @ks-mes/db run generate",
+    "db:migrate": "pnpm --filter @ks-mes/db run migrate",
+    "db:migrate:deploy": "pnpm --filter @ks-mes/db run migrate:deploy",
+    "db:studio": "pnpm --filter @ks-mes/db run studio",
+    "db:seed": "pnpm --filter @ks-mes/db run seed",
+    "db:reset": "pnpm --filter @ks-mes/db run reset"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0",
+    "prettier": "^3.2.0"
+  }
+}

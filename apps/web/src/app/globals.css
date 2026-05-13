@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+
+  /* SSE EventSource 로딩 인디케이터 */
+  .sse-loading {
+    @apply animate-pulse text-slate-400;
+  }
+}
+
+@layer components {
+  .page-title {
+    @apply text-xl font-bold text-slate-900;
+  }
+
+  .section-card {
+    @apply rounded-xl border border-slate-200 bg-white p-5 shadow-sm;
+  }
+}

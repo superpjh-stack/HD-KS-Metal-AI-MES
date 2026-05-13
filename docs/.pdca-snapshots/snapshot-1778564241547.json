@@ -1,0 +1,1171 @@
+{
+  "timestamp": "2026-05-12T05:37:21.545Z",
+  "reason": "compaction",
+  "status": {
+    "version": "2.0",
+    "lastUpdated": "2026-05-12T05:28:06.695Z",
+    "activeFeatures": [
+      "ai-mes-foundation",
+      "domain",
+      "packages",
+      "db",
+      "ui",
+      "prisma",
+      "scripts",
+      "auth-service",
+      "dto",
+      "auth",
+      "decorators",
+      "guards",
+      "master-service",
+      "lot",
+      "machine",
+      "work-order",
+      "iot-collector",
+      "timescale",
+      "redis",
+      "mqtt",
+      "sensor",
+      "KpiCard",
+      "MachineStatusBadge",
+      "SensorSparkline",
+      "AlertPanel",
+      "AppShell",
+      "Sidebar",
+      "web",
+      "login",
+      "providers",
+      "layout",
+      "(app)",
+      "dashboard",
+      "[id]"
+    ],
+    "primaryFeature": "ai-mes-foundation",
+    "features": {
+      "ai-mes-foundation": {
+        "phase": "do",
+        "subPhase": "1-A-complete",
+        "matchRate": null,
+        "iterationCount": 0,
+        "startedAt": "2026-05-11T00:00:00.000Z",
+        "planDoc": "docs/01-plan/features/ai-mes-foundation.plan.md",
+        "designDoc": "docs/02-design/features/ai-mes-foundation.design.md",
+        "phase1A": {
+          "completedAt": "2026-05-11T06:00:00.000Z",
+          "files": [
+            "package.json",
+            "turbo.json",
+            ".gitignore",
+            "packages/config/tsconfig.base.json",
+            "packages/types/src/domain/lot.ts",
+            "packages/types/src/domain/machine.ts",
+            "packages/types/src/domain/work-order.ts",
+            "packages/types/src/domain/user.ts",
+            "packages/types/src/domain/audit.ts",
+            "packages/types/src/api.ts",
+            "packages/types/src/index.ts",
+            "packages/db/package.json",
+            "packages/db/prisma/schema.prisma",
+            "packages/db/prisma/migrations/ts_setup.sql",
+            "packages/db/prisma/seed.ts",
+            "packages/db/src/index.ts",
+            "packages/ui/package.json",
+            "packages/ui/src/index.ts",
+            "packages/ui/src/types.ts",
+            "infra/docker/docker-compose.dev.yml",
+            "infra/docker/.env.example",
+            "infra/docker/init/postgres-init.sql",
+            "infra/keycloak/realm-export.json",
+            "infra/kong/kong.yml"
+          ]
+        }
+      },
+      "domain": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:46:02.044Z",
+          "lastUpdated": "2026-05-11T05:46:17.226Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\types\\src\\domain\\audit.ts"
+      },
+      "packages": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:46:23.203Z",
+          "lastUpdated": "2026-05-11T05:46:24.823Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\types\\src\\index.ts"
+      },
+      "db": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:47:05.984Z",
+          "lastUpdated": "2026-05-12T04:19:10.580Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\master-service\\src\\db\\prisma.service.ts"
+      },
+      "ui": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:48:03.861Z",
+          "lastUpdated": "2026-05-12T05:15:16.570Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\ui\\src\\index.ts"
+      },
+      "prisma": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T05:48:17.673Z",
+          "lastUpdated": "2026-05-11T05:48:17.673Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\db\\prisma\\seed.ts"
+      },
+      "scripts": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-11T06:09:04.445Z",
+          "lastUpdated": "2026-05-11T06:09:04.445Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\scripts\\db-setup.ps1"
+      },
+      "auth-service": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T01:57:59.738Z",
+          "lastUpdated": "2026-05-12T02:07:29.122Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\auth-service\\src\\main.ts"
+      },
+      "dto": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T01:58:06.669Z",
+          "lastUpdated": "2026-05-12T04:25:34.807Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\iot-collector\\src\\sensor\\dto\\history-query.dto.ts"
+      },
+      "auth": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T01:58:20.197Z",
+          "lastUpdated": "2026-05-12T05:16:37.973Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\components\\auth\\AuthGuard.tsx"
+      },
+      "decorators": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T01:58:40.686Z",
+          "lastUpdated": "2026-05-12T01:58:42.636Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\auth-service\\src\\decorators\\current-user.decorator.ts"
+      },
+      "guards": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T01:58:45.234Z",
+          "lastUpdated": "2026-05-12T01:58:48.346Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\auth-service\\src\\guards\\roles.guard.ts"
+      },
+      "master-service": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:15:47.652Z",
+          "lastUpdated": "2026-05-12T04:15:50.468Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\master-service\\src\\app.module.ts"
+      },
+      "lot": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:16:39.919Z",
+          "lastUpdated": "2026-05-12T05:28:06.695Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\features\\lot\\LotTraceTimeline.tsx"
+      },
+      "machine": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:17:11.302Z",
+          "lastUpdated": "2026-05-12T04:17:20.665Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\master-service\\src\\machine\\machine.module.ts"
+      },
+      "work-order": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:17:39.606Z",
+          "lastUpdated": "2026-05-12T04:19:19.729Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\master-service\\src\\work-order\\work-order.repository.ts"
+      },
+      "iot-collector": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:24:12.437Z",
+          "lastUpdated": "2026-05-12T04:24:14.756Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\iot-collector\\src\\app.module.ts"
+      },
+      "timescale": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:24:37.713Z",
+          "lastUpdated": "2026-05-12T04:24:45.605Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\iot-collector\\src\\timescale\\timescale-write.service.ts"
+      },
+      "redis": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:24:49.191Z",
+          "lastUpdated": "2026-05-12T04:24:54.492Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\iot-collector\\src\\redis\\redis-pubsub.service.ts"
+      },
+      "mqtt": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:25:00.276Z",
+          "lastUpdated": "2026-05-12T04:25:14.810Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\iot-collector\\src\\mqtt\\mqtt.adapter.ts"
+      },
+      "sensor": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T04:25:20.055Z",
+          "lastUpdated": "2026-05-12T05:09:13.677Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\iot-collector\\src\\sensor\\sensor.service.ts"
+      },
+      "KpiCard": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:14:22.919Z",
+          "lastUpdated": "2026-05-12T05:14:22.919Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\ui\\src\\KpiCard\\index.tsx"
+      },
+      "MachineStatusBadge": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:14:28.723Z",
+          "lastUpdated": "2026-05-12T05:14:28.723Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\ui\\src\\MachineStatusBadge\\index.tsx"
+      },
+      "SensorSparkline": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:14:38.121Z",
+          "lastUpdated": "2026-05-12T05:14:38.121Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\ui\\src\\SensorSparkline\\index.tsx"
+      },
+      "AlertPanel": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:14:45.744Z",
+          "lastUpdated": "2026-05-12T05:14:45.744Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\ui\\src\\AlertPanel\\index.tsx"
+      },
+      "AppShell": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:14:59.238Z",
+          "lastUpdated": "2026-05-12T05:14:59.238Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\ui\\src\\AppShell\\index.tsx"
+      },
+      "Sidebar": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:15:09.564Z",
+          "lastUpdated": "2026-05-12T05:15:09.564Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\packages\\ui\\src\\Sidebar\\index.tsx"
+      },
+      "web": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:15:30.543Z",
+          "lastUpdated": "2026-05-12T05:16:48.295Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\app\\layout.tsx"
+      },
+      "login": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:16:26.178Z",
+          "lastUpdated": "2026-05-12T05:16:26.178Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\app\\login\\page.tsx"
+      },
+      "providers": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:16:32.882Z",
+          "lastUpdated": "2026-05-12T05:16:32.882Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\components\\providers\\Providers.tsx"
+      },
+      "layout": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:16:40.485Z",
+          "lastUpdated": "2026-05-12T05:16:40.485Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\components\\layout\\AppLayout.tsx"
+      },
+      "(app)": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:16:49.776Z",
+          "lastUpdated": "2026-05-12T05:16:49.776Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\app\\(app)\\layout.tsx"
+      },
+      "dashboard": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:16:57.072Z",
+          "lastUpdated": "2026-05-12T05:17:21.675Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\app\\(app)\\dashboard\\page.tsx"
+      },
+      "[id]": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-12T05:17:57.307Z",
+          "lastUpdated": "2026-05-12T05:17:57.307Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\HD-KS-Metal-AI-MES\\apps\\web\\src\\app\\(app)\\lot\\[id]\\page.tsx"
+      }
+    },
+    "pipeline": {
+      "currentPhase": 2,
+      "level": "Dynamic",
+      "phaseHistory": [
+        {
+          "phase": 1,
+          "completedAt": "2026-05-11T00:00:00.000Z"
+        }
+      ]
+    },
+    "session": {
+      "startedAt": "2026-05-11T00:00:00.000Z",
+      "onboardingCompleted": true,
+      "lastActivity": "2026-05-12T05:28:06.695Z"
+    },
+    "history": [
+      {
+        "event": "plan_created",
+        "feature": "ai-mes-foundation",
+        "timestamp": "2026-05-11T00:00:00.000Z"
+      },
+      {
+        "event": "design_started",
+        "feature": "ai-mes-foundation",
+        "timestamp": "2026-05-11T00:00:00.000Z"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:02.044Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:08.868Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:10.913Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:15.479Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:17.226Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:23.203Z",
+        "feature": "packages",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:46:24.823Z",
+        "feature": "packages",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:47:05.984Z",
+        "feature": "db",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:48:03.861Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:48:09.476Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T05:48:17.673Z",
+        "feature": "prisma",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-11T06:09:04.445Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:57:59.738Z",
+        "feature": "auth-service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:01.771Z",
+        "feature": "auth-service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:06.669Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:08.778Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:20.197Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:31.044Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:35.727Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:40.686Z",
+        "feature": "decorators",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:42.636Z",
+        "feature": "decorators",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:45.234Z",
+        "feature": "guards",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:58:48.346Z",
+        "feature": "guards",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:59:02.971Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T01:59:05.465Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T02:07:29.122Z",
+        "feature": "auth-service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T02:07:30.815Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T02:07:32.807Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:15:47.652Z",
+        "feature": "master-service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:15:50.468Z",
+        "feature": "master-service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:15:55.878Z",
+        "feature": "db",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:15:57.975Z",
+        "feature": "db",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:04.564Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:07.350Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:10.606Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:11.937Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:13.439Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:15.022Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:21.507Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:24.678Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:26.355Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:28.437Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:39.919Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:43.777Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:47.752Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:54.574Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:16:57.095Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:05.470Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:11.302Z",
+        "feature": "machine",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:14.351Z",
+        "feature": "machine",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:18.797Z",
+        "feature": "machine",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:20.665Z",
+        "feature": "machine",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:30.697Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:39.606Z",
+        "feature": "work-order",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:45.465Z",
+        "feature": "work-order",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:48.059Z",
+        "feature": "work-order",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:17:50.833Z",
+        "feature": "work-order",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:19:10.581Z",
+        "feature": "db",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:19:17.563Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:19:19.729Z",
+        "feature": "work-order",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:12.437Z",
+        "feature": "iot-collector",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:14.756Z",
+        "feature": "iot-collector",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:21.157Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:24.059Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:26.008Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:37.713Z",
+        "feature": "timescale",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:45.605Z",
+        "feature": "timescale",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:49.191Z",
+        "feature": "redis",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:24:54.492Z",
+        "feature": "redis",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:25:00.276Z",
+        "feature": "mqtt",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:25:14.810Z",
+        "feature": "mqtt",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:25:20.055Z",
+        "feature": "sensor",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:25:33.180Z",
+        "feature": "sensor",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:25:34.807Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T04:25:41.733Z",
+        "feature": "sensor",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:09:13.677Z",
+        "feature": "sensor",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:14:17.049Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:14:22.919Z",
+        "feature": "KpiCard",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:14:28.723Z",
+        "feature": "MachineStatusBadge",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:14:38.121Z",
+        "feature": "SensorSparkline",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:14:45.744Z",
+        "feature": "AlertPanel",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:14:59.238Z",
+        "feature": "AppShell",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:15:09.564Z",
+        "feature": "Sidebar",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:15:16.570Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:15:30.543Z",
+        "feature": "web",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:15:32.179Z",
+        "feature": "web",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:15:53.197Z",
+        "feature": "web",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:06.477Z",
+        "feature": "web",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:08.335Z",
+        "feature": "web",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:22.675Z",
+        "feature": "web",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:26.178Z",
+        "feature": "login",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:32.882Z",
+        "feature": "providers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:37.973Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:40.485Z",
+        "feature": "layout",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:48.295Z",
+        "feature": "web",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:49.776Z",
+        "feature": "(app)",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:16:57.072Z",
+        "feature": "dashboard",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:17:21.675Z",
+        "feature": "dashboard",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:17:29.948Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:17:43.903Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:17:57.307Z",
+        "feature": "[id]",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:18:18.287Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:26:57.300Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:26:58.279Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-12T05:28:06.695Z",
+        "feature": "lot",
+        "phase": "do",
+        "action": "updated"
+      }
+    ]
+  }
+}

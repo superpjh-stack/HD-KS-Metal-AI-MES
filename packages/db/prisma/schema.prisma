@@ -1,0 +1,437 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────
+// 원자재/제품 LOT 추적
+// ─────────────────────────────────────────
+
+model Lot {
+  id          String    @id @default(uuid())
+  lotNumber   String    @unique
+  lotType     LotType
+  materialId  String?
+  supplierId  String?
+  quantity    Decimal   @db.Decimal(12, 3)
+  unit        String    @db.VarChar(10)
+  status      LotStatus @default(ACTIVE)
+  createdById String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  material   Material? @relation(fields: [materialId], references: [id])
+  supplier   Supplier? @relation(fields: [supplierId], references: [id])
+  createdBy  User      @relation(fields: [createdById], references: [id])
+  events     LotEvent[]
+
+  @@map("lots")
+}
+
+model LotEvent {
+  id          String   @id @default(uuid())
+  lotId       String
+  eventType   String   @db.VarChar(30)
+  machineId   String?
+  workOrderId String?
+  operatorId  String?
+  payload     Json?
+  occurredAt  DateTime @default(now())
+
+  lot       Lot        @relation(fields: [lotId], references: [id])
+  machine   Machine?   @relation(fields: [machineId], references: [id])
+  workOrder WorkOrder? @relation(fields: [workOrderId], references: [id])
+  operator  User?      @relation("LotEventOperator", fields: [operatorId], references: [id])
+
+  @@index([lotId])
+  @@index([occurredAt(sort: Desc)])
+  @@map("lot_events")
+  // INSERT-ONLY: REVOKE UPDATE, DELETE ON lot_events FROM mes_app_user (in ts_setup.sql)
+}
+
+// ─────────────────────────────────────────
+// 설비 (Machine)
+// ─────────────────────────────────────────
+
+model Machine {
+  id           String        @id @default(uuid())
+  machineCode  String        @unique @db.VarChar(20)
+  name         String        @db.VarChar(100)
+  machineType  String        @db.VarChar(30)
+  lineId       String?
+  manufacturer String?       @db.VarChar(100)
+  model        String?       @db.VarChar(100)
+  plcAddress   String?       @db.VarChar(200)
+  installedAt  DateTime?     @db.Date
+  status       String        @default("ACTIVE") @db.VarChar(20)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  line          ProductionLine? @relation(fields: [lineId], references: [id])
+  workOrders    WorkOrder[]
+  lotEvents     LotEvent[]
+  sensorData    SensorData[]
+  alarmRules     AlarmRule[]
+  alarmEvents    AlarmEvent[]
+  spcParameters  SpcParameter[]
+  predictionLogs PredictionLog[]
+
+  @@map("machines")
+}
+
+model ProductionLine {
+  id        String    @id @default(uuid())
+  lineCode  String    @unique @db.VarChar(20)
+  name      String    @db.VarChar(100)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  machines  Machine[]
+
+  @@map("production_lines")
+}
+
+// ─────────────────────────────────────────
+// 금형 (Mold)
+// ─────────────────────────────────────────
+
+model Mold {
+  id            String      @id @default(uuid())
+  moldCode      String      @unique @db.VarChar(30)
+  name          String      @db.VarChar(100)
+  totalStrokes  Int         @default(0)
+  maxStrokes    Int
+  status        String      @default("ACTIVE") @db.VarChar(20)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  workOrders    WorkOrder[]
+
+  @@map("molds")
+}
+
+// ─────────────────────────────────────────
+// 작업 지시 (Work Order)
+// ─────────────────────────────────────────
+
+model WorkOrder {
+  id           String    @id @default(uuid())
+  woNumber     String    @unique @db.VarChar(30)
+  productCode  String    @db.VarChar(50)
+  moldId       String?
+  machineId    String
+  plannedQty   Int
+  producedQty  Int       @default(0)
+  defectQty    Int       @default(0)
+  status       WOStatus  @default(PLANNED)
+  plannedStart DateTime?
+  plannedEnd   DateTime?
+  actualStart  DateTime?
+  actualEnd    DateTime?
+  operatorId   String?
+  createdById  String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  machine    Machine   @relation(fields: [machineId], references: [id])
+  mold       Mold?     @relation(fields: [moldId], references: [id])
+  operator   User?     @relation("WOOperator", fields: [operatorId], references: [id])
+  createdBy  User      @relation("WOCreatedBy", fields: [createdById], references: [id])
+  lotEvents  LotEvent[]
+
+  @@index([machineId, status])
+  @@map("work_orders")
+}
+
+// ─────────────────────────────────────────
+// 자재 / 공급처
+// ─────────────────────────────────────────
+
+model Material {
+  id           String   @id @default(uuid())
+  materialCode String   @unique @db.VarChar(50)
+  name         String   @db.VarChar(100)
+  spec         String?
+  unit         String   @db.VarChar(10)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  lots         Lot[]
+
+  @@map("materials")
+}
+
+model Supplier {
+  id           String   @id @default(uuid())
+  supplierCode String   @unique @db.VarChar(30)
+  name         String   @db.VarChar(100)
+  contact      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  lots         Lot[]
+
+  @@map("suppliers")
+}
+
+// ─────────────────────────────────────────
+// IoT 센서 데이터 (로컬 개발: 일반 PG 테이블)
+// 운영: TimescaleDB hypertable로 전환 (ts_setup.sql 참조)
+// ─────────────────────────────────────────
+
+model SensorData {
+  id        BigInt   @id @default(autoincrement())
+  time      DateTime @default(now())
+  machineId String
+  channel   String   @db.VarChar(30)
+  value     Float
+  quality   Int      @default(192)
+
+  machine   Machine  @relation(fields: [machineId], references: [id])
+
+  @@index([machineId, time(sort: Desc)])
+  @@index([time(sort: Desc)])
+  @@map("sensor_data")
+}
+
+// ─────────────────────────────────────────
+// 사용자
+// ─────────────────────────────────────────
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique @db.VarChar(200)
+  name         String    @db.VarChar(100)
+  department   String?   @db.VarChar(100)
+  roles        String[]
+  keycloakId   String?   @unique @db.VarChar(100)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  lotsCreated      Lot[]
+  lotEventOperator LotEvent[]  @relation("LotEventOperator")
+  woOperator       WorkOrder[] @relation("WOOperator")
+  woCreatedBy      WorkOrder[] @relation("WOCreatedBy")
+
+  @@map("users")
+}
+
+// ─────────────────────────────────────────
+// 감사 로그 (INSERT-ONLY)
+// ─────────────────────────────────────────
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  userId       String
+  userEmail    String   @db.VarChar(200)
+  action       String   @db.VarChar(50)
+  resourceType String   @db.VarChar(50)
+  resourceId   String?  @db.VarChar(100)
+  beforeValue  Json?
+  afterValue   Json?
+  ipAddress    String?  @db.VarChar(45)
+  userAgent    String?
+  occurredAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([resourceType, resourceId])
+  @@index([occurredAt(sort: Desc)])
+  @@map("audit_logs")
+  // INSERT-ONLY: REVOKE UPDATE, DELETE ON audit_logs FROM mes_app_user (in ts_setup.sql)
+}
+
+// ─────────────────────────────────────────
+// Enums
+// ─────────────────────────────────────────
+
+// ─────────────────────────────────────────
+// AI 이상감지 — 알람 규칙 / 이벤트 / SPC 파라미터
+// ─────────────────────────────────────────
+
+model AlarmRule {
+  id          String        @id @default(cuid())
+  machineId   String
+  channel     String        @db.VarChar(40)
+  ruleType    AlarmRuleType
+  threshold   Float?
+  sigmaFactor Float?        @default(3.0)
+  windowMin   Int?          @default(60)
+  enabled     Boolean       @default(true)
+  severity    AlarmSeverity @default(WARNING)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  machine     Machine      @relation(fields: [machineId], references: [id])
+  events      AlarmEvent[]
+
+  @@unique([machineId, channel, ruleType])
+  @@map("alarm_rules")
+}
+
+model AlarmEvent {
+  id             String        @id @default(cuid())
+  ruleId         String
+  machineId      String
+  channel        String        @db.VarChar(40)
+  severity       AlarmSeverity
+  value          Float
+  threshold      Float?
+  message        String
+  occurredAt     DateTime
+  acknowledgedAt DateTime?
+  acknowledgedBy String?       @db.VarChar(100)
+
+  rule    AlarmRule @relation(fields: [ruleId], references: [id])
+  machine Machine   @relation(fields: [machineId], references: [id])
+
+  @@index([machineId, occurredAt(sort: Desc)])
+  @@index([severity, occurredAt(sort: Desc)])
+  @@index([acknowledgedAt])
+  @@map("alarm_events")
+}
+
+model SpcParameter {
+  id          String   @id @default(cuid())
+  machineId   String
+  channel     String   @db.VarChar(40)
+  usl         Float?
+  lsl         Float?
+  sampleSize  Int      @default(5)
+  sampleCount Int      @default(25)
+  updatedAt   DateTime @updatedAt
+
+  machine Machine @relation(fields: [machineId], references: [id])
+
+  @@unique([machineId, channel])
+  @@map("spc_parameters")
+}
+
+// ─────────────────────────────────────────
+// Enums
+// ─────────────────────────────────────────
+
+enum AlarmRuleType {
+  THRESHOLD
+  SIGMA
+  WESTERN_ELECTRIC
+}
+
+enum AlarmSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum LotType {
+  MATERIAL
+  WIP
+  PRODUCT
+}
+
+enum LotStatus {
+  ACTIVE
+  USED
+  REJECTED
+  SHIPPED
+}
+
+enum WOStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  ON_HOLD
+}
+
+// ─────────────────────────────────────────
+// 예측정비 ML (Phase 3)
+// ─────────────────────────────────────────
+
+model MlModelStatus {
+  id           String    @id @default(cuid())
+  modelType    String    @db.VarChar(20)   // AUTOENCODER | FAILURE_PROB | RUL
+  version      String    @db.VarChar(20)
+  trainedAt    DateTime?
+  trainSamples Int       @default(0)
+  threshold    Float?
+  metrics      Json?
+  filePath     String?   @db.VarChar(200)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+
+  @@unique([modelType, isActive])
+  @@index([modelType, trainedAt(sort: Desc)])
+  @@map("ml_model_status")
+}
+
+model PredictionLog {
+  id           String   @id @default(cuid())
+  machineId    String
+  channel      String   @db.VarChar(40)
+  modelType    String   @db.VarChar(20)
+  predictedAt  DateTime @default(now())
+  score        Float
+  isAnomaly    Boolean  @default(false)
+  alarmEventId String?
+
+  machine      Machine  @relation(fields: [machineId], references: [id])
+
+  @@index([machineId, modelType, predictedAt(sort: Desc)])
+  @@index([predictedAt(sort: Desc)])
+  @@map("prediction_logs")
+}
+
+// ─────────────────────────────────────────
+// 리포트 이력
+// ─────────────────────────────────────────
+
+// ─────────────────────────────────────────
+// 생산 스케줄링
+// ─────────────────────────────────────────
+
+model ProductionSchedule {
+  id            String         @id @default(cuid())
+  scheduleNo    String         @unique
+  workOrderId   String?
+  machineId     String
+  productCode   String
+  plannedQty    Int
+  plannedStart  DateTime
+  plannedEnd    DateTime
+  actualStart   DateTime?
+  actualEnd     DateTime?
+  status        ScheduleStatus @default(PENDING)
+  priority      Int            @default(5)   // 1 (highest) – 10 (lowest)
+  notes         String?
+  createdById   String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([machineId, plannedStart])
+  @@index([status])
+  @@map("production_schedules")
+}
+
+enum ScheduleStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  ON_HOLD
+}
+
+model ReportRecord {
+  id          String   @id @default(cuid())
+  reportType  String   // "daily" | "weekly" | "monthly" | "custom"
+  from        DateTime
+  to          DateTime
+  generatedAt DateTime @default(now())
+  generatedBy String?  // userId; null = scheduled
+  status      String   @default("completed") // "pending" | "completed" | "failed"
+
+  @@index([generatedAt(sort: Desc)])
+  @@map("report_records")
+}

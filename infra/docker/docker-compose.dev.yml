@@ -1,0 +1,245 @@
+name: ks-mes-dev
+
+services:
+  # ─────────────────────────────────────────
+  # PostgreSQL (OLTP: LOT, WorkOrder, Audit)
+  # ─────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: ks-mes-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ks_mes
+      POSTGRES_USER: mes_app_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init/postgres-init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mes_app_user -d ks_mes"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s  # PostgreSQL is typically ready in <5s
+
+  # ─────────────────────────────────────────
+  # TimescaleDB (IoT 시계열: sensor_data)
+  # ─────────────────────────────────────────
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: ks-mes-timescale
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ks_mes_ts
+      POSTGRES_USER: mes_ts_user
+      POSTGRES_PASSWORD: ${TS_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mes_ts_user -d ks_mes_ts"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s  # PostgreSQL is typically ready in <5s
+
+  # ─────────────────────────────────────────
+  # Redis (세션 캐시 / Pub-Sub 실시간 알림)
+  # ─────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: ks-mes-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s   # Redis starts in <2s
+
+  # ─────────────────────────────────────────
+  # EMQX (MQTT Broker: IoT 데이터 수집)
+  # ─────────────────────────────────────────
+  emqx:
+    image: emqx/emqx:5.6
+    container_name: ks-mes-emqx
+    restart: unless-stopped
+    environment:
+      EMQX_NODE__COOKIE: ${EMQX_COOKIE}
+      EMQX_DASHBOARD__DEFAULT_PASSWORD: ${EMQX_DASHBOARD_PASSWORD}
+    ports:
+      - "1883:1883"    # MQTT
+      - "8883:8883"    # MQTT over TLS
+      - "18083:18083"  # Dashboard UI
+    volumes:
+      - emqx_data:/opt/emqx/data
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ─────────────────────────────────────────
+  # Keycloak (인증/인가 - OIDC)
+  # ─────────────────────────────────────────
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: ks-mes-keycloak
+    restart: unless-stopped
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: mes_app_user
+      KC_DB_PASSWORD: ${DB_PASSWORD}
+      KC_HOSTNAME: localhost
+      KC_HTTP_PORT: 8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s  # Keycloak takes 45-60s to initialize realm
+
+  # ─────────────────────────────────────────
+  # MinIO (S3 호환: 파일 저장 - 검사 사진, 리포트)
+  # ─────────────────────────────────────────
+  # ─────────────────────────────────────────
+  # ai-service (이상감지 / SPC)
+  # ─────────────────────────────────────────
+  ai-service:
+    build:
+      context: ../../
+      dockerfile: apps/ai-service/Dockerfile.dev
+    container_name: ks-mes-ai-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3006
+      DATABASE_URL: postgresql://mes_app_user:${DB_PASSWORD}@postgres:5432/ks_mes
+      TIMESCALE_URL: postgresql://mes_ts_user:${TS_PASSWORD}@timescaledb:5432/ks_mes_ts
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      KEYCLOAK_URL: http://keycloak:8080
+      KEYCLOAK_REALM: ks-mes
+      KEYCLOAK_CLIENT_ID: mes-backend
+      ML_SERVICE_URL: http://ml-service:3007
+      ML_API_KEY: ${ML_API_KEY}
+    ports:
+      - "3006:3006"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      timescaledb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3006/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s  # NestJS app startup under dev watch mode
+
+  # ─────────────────────────────────────────
+  # ml-service (예측정비 AI — FastAPI :3007)
+  # ─────────────────────────────────────────
+  ml-service:
+    build:
+      context: ../../apps/ml-service
+      dockerfile: Dockerfile
+    container_name: ks-mes-ml-service
+    restart: unless-stopped
+    environment:
+      TIMESCALE_URL: postgresql://mes_ts_user:${TS_PASSWORD}@timescaledb:5432/ks_mes_ts
+      POSTGRES_URL: postgresql://mes_app_user:${DB_PASSWORD}@postgres:5432/ks_mes
+      ML_API_KEY: ${ML_API_KEY}
+      MODEL_DIR: /models
+    ports:
+      - "3007:3007"
+    volumes:
+      - ml_models:/models
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3007/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  scheduling-service:
+    build:
+      context: ../..
+      dockerfile: apps/scheduling-service/Dockerfile.dev
+    container_name: ks-mes-scheduling
+    restart: unless-stopped
+    ports:
+      - "3008:3008"
+    environment:
+      PORT: 3008
+      NODE_ENV: development
+      DATABASE_URL: postgresql://mes_app_user:${DB_PASSWORD}@postgres:5432/ks_mes
+      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3008/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  minio:
+    image: minio/minio:latest
+    container_name: ks-mes-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Console UI
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  postgres_data:
+  timescale_data:
+  redis_data:
+  emqx_data:
+  minio_data:
+  ml_models:
+
+networks:
+  default:
+    name: ks-mes-network

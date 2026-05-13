@@ -1,0 +1,55 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: auth-service
+    url: http://auth-service:3001
+    routes:
+      - name: auth-routes
+        paths: ["/api/v1/auth"]
+        strip_path: false
+
+  - name: master-service
+    url: http://master-service:3002
+    routes:
+      - name: master-routes
+        paths: ["/api/v1/lots", "/api/v1/machines", "/api/v1/work-orders", "/api/v1/materials", "/api/v1/suppliers"]
+        strip_path: false
+    plugins:
+      - name: jwt
+        config:
+          key_claim_name: kid
+          claims_to_verify: [exp]
+          uri_param_names: [jwt]
+          cookie_names: []
+
+  - name: iot-collector
+    url: http://iot-collector:3003
+    routes:
+      - name: iot-routes
+        paths: ["/api/v1/sensors"]
+        strip_path: false
+    plugins:
+      - name: jwt
+        config:
+          key_claim_name: kid
+          claims_to_verify: [exp]
+
+  - name: audit-service
+    url: http://audit-service:3004
+    routes:
+      - name: audit-routes
+        paths: ["/api/v1/audit"]
+        strip_path: false
+    plugins:
+      - name: jwt
+        config:
+          key_claim_name: kid
+          claims_to_verify: [exp]
+
+plugins:
+  - name: rate-limiting
+    config:
+      minute: 300
+      hour: 10000
+      policy: local
